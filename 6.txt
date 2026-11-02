@@ -1,0 +1,64 @@
+vi lab5.txt
+Linux is an open source operating system.
+Vi is a powerful text editor.
+Vim is an improved version of vi.
+Linux commands are useful for system administration.
+This is my fifth Linux practical.
+Linux is easy to learn.
+
+:set number
+:set nonumber
+i
+a
+o
+O
+:w
+0
+$
+gg
+G
+x
+dw
+dd
+yy
+p
+3yy
+p
+/Linux
+n
+N
+?Linux
+n
+N
+:s/Linux/Unix/
+:%s/Linux/Unix/g
+u
+Ctrl + r
+:.
+:5
+:w
+:wq
+
+vi lab5.txt
+:q!
+cat lab5.txt
+cat -n lab5.txt
+vi lab5.txt
+i
+Linux is an open source operating system.
+Vi is a powerful text editor.
+Vim is an improved version of vi.
+Linux commands are useful for system administration.
+This is my fifth Linux practical.
+Esc
+:set number
+/Linux
+n
+:s/Linux/Unix/
+:%s/Unix/Linux/g
+yy
+p
+u
+Ctrl + r
+:w
+:wq

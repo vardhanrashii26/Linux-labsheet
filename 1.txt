@@ -1,0 +1,324 @@
+# 1
+pwd
+/home/anshika
+
+# 2
+ls
+Desktop  Documents  Downloads  Music  Pictures  Videos
+
+# 3
+ls -a ~
+.  ..  .bashrc  .profile  .cache  Desktop  Documents  Downloads
+
+# 4
+ls -lh
+total 12K
+-rw-r--r-- 1 anshika anshika 2.0K Nov  2 10:30 file1.txt
+drwxr-xr-x 2 anshika anshika 4.0K Nov  2 10:40 Documents
+
+# 5
+mkdir myfirstlab
+
+# 6
+cd myfirstlab
+
+# 7
+touch a.txt b.txt c.txt
+
+# 8
+cat /etc/os-release
+PRETTY_NAME="Ubuntu 24.04 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04 LTS"
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+
+# 9
+whoami
+anshika
+
+# 10
+hostname
+ubuntu
+
+# 11
+df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2        50G   18G   30G  38% /
+
+# 12
+free -h
+               total   used   free  shared  buff/cache  available
+Mem:            4.0G   1.2G   2.0G   150M      800M       2.5G
+Swap:           2.0G     0B   2.0G
+
+# 13
+uptime
+19:30:10 up 2 hours, 15 min, 1 user, load average: 0.10, 0.15, 0.12
+
+# 14
+uname -a
+Linux ubuntu 6.8.0-40-generic #40-Ubuntu SMP x86_64 GNU/Linux
+
+# 15
+man ls
+LS(1) User Commands LS(1)
+NAME
+       ls - list directory contents
+SYNOPSIS
+       ls [OPTION]... [FILE]...
+# Press q to exit
+
+# 16
+cp --help
+Usage: cp [OPTION]... SOURCE DEST
+Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.
+Options:
+  -a, --archive
+  -f, --force
+  -i, --interactive
+  -r, --recursive
+  -v, --verbose
+      --help display this help and exit
+
+# 17
+whatis mv
+mv (1) - move (rename) files
+
+# 18
+cd ~
+
+# 19
+mkdir -p project/src/data
+
+# 20
+rm ~/myfirstlab/c.txt
+
+# 21
+echo "Rahul" > students.txt
+echo "Riya" >> students.txt
+echo "Anshika" >> students.txt
+echo "Rohit" >> students.txt
+echo "Priya" >> students.txt
+
+cat students.txt
+Rahul
+Riya
+Anshika
+Rohit
+Priya
+
+
+# 22
+head -n 2 students.txt
+Rahul
+Riya
+
+
+# 23
+tail -n 2 students.txt
+Rohit
+Priya
+
+
+# 24
+mkdir backup
+cp students.txt backup/
+
+
+# 25
+mv students.txt class_list.txt
+
+
+# 26
+grep "a" class_list.txt
+Rahul
+Anshika
+Priya
+
+
+# 27
+grep -n "a" class_list.txt
+1:Rahul
+3:Anshika
+5:Priya
+
+
+# 28
+chmod 600 class_list.txt
+ls -l class_list.txt
+-rw------- 1 anshika anshika 31 Nov 2 19:30 class_list.txt
+
+
+# 29
+find ~ -type f -name "*.txt"
+/home/anshika/myfirstlab/a.txt
+/home/anshika/myfirstlab/b.txt
+/home/anshika/backup/students.txt
+/home/anshika/class_list.txt
+
+
+# 30
+wc -l class_list.txt
+5 class_list.txt
+
+
+# 31
+head -n 5 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+
+
+# 32
+tail -n 5 /var/log/dpkg.log
+2026-11-02 10:00:00 startup packages configure
+2026-11-02 10:00:01 status installed package1
+2026-11-02 10:00:02 startup packages configure
+2026-11-02 10:00:03 status installed package2
+2026-11-02 10:00:04 startup packages configure
+
+
+# 33
+cp -r project project_backup
+
+ls
+project  project_backup
+
+
+# 34
+less /etc/passwd
+
+# Press q to quit less
+
+
+# 35
+mkdir -p archive
+mv myfirstlab/a.txt myfirstlab/b.txt archive/
+
+ls archive/
+a.txt  b.txt
+
+# 36
+mkdir -p logs
+for i in {1..10}; do echo "This is dummy log line $i" >> logs/app.log; done
+tail -n 3 logs/app.log
+
+This is dummy log line 8
+This is dummy log line 9
+This is dummy log line 10
+
+
+# 37
+find . -type f -name "*.log" -exec cat {} \;
+
+This is dummy log line 1
+This is dummy log line 2
+This is dummy log line 3
+This is dummy log line 4
+This is dummy log line 5
+This is dummy log line 6
+This is dummy log line 7
+This is dummy log line 8
+This is dummy log line 9
+This is dummy log line 10
+
+
+# 38
+grep -rn "error" .
+
+./logs/app.log: (No matching error found)
+
+
+# 39
+touch test.sh
+echo '#!/bin/bash' > test.sh
+echo '# Permission rwxr-xr-- means owner has read, write and execute, group has read and execute, others have read only.' >> test.sh
+chmod +x test.sh
+ls -l test.sh
+
+-rwxr-xr-x 1 anshika anshika 150 Nov 2 19:30 test.sh
+
+
+# 40
+mkdir demo && cd demo && ls
+
+(No output - directory created and entered successfully)
+
+
+# 41
+find ~ -type f -name "*.txt" | wc -l
+
+5
+
+
+# 42
+find /var/log -type d
+
+/var/log
+/var/log/apt
+/var/log/journal
+/var/log/installer
+
+
+# 43
+grep -i "UUID" /etc/fstab
+
+# Sample output:
+UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx / ext4 defaults 0 1
+
+
+# 44
+du -sh ~/logs
+
+40K    /home/anshika/logs
+# 45
+ls -lS | head -n 4
+
+total 20
+-rw-r--r-- 1 anshika anshika 5000 Nov 2 19:30 file1.txt
+-rw-r--r-- 1 anshika anshika 3000 Nov 2 19:30 file2.txt
+-rw-r--r-- 1 anshika anshika 2000 Nov 2 19:30 file3.txt
+
+
+# 46
+# Running rm -rf * is dangerous because it permanently deletes
+# all files and directories in the current location without confirmation.
+
+pwd
+ls -la
+
+# Always verify the current directory and its contents before deleting files.
+
+touch class_list.txt
+
+stat class_list.txt
+
+echo "Apple" > duplicate.txt
+echo "Mango" >> duplicate.txt
+echo "Apple" >> duplicate.txt
+echo "Banana" >> duplicate.txt
+echo "Mango" >> duplicate.txt
+echo "Orange" >> duplicate.txt
+
+sort duplicate.txt | uniq
+
+Apple
+Banana
+Mango
+Orange
+
+uname -a > sys_info.txt
+cat sys_info.txt
+
+Linux ubuntu 6.8.0-40-generic #40-Ubuntu SMP x86_64 GNU/Linux
+
+find /var/log -type f -mtime -7
+
+/var/log/syslog
+/var/log/dpkg.log
+/var/log/auth.log

@@ -1,0 +1,241 @@
+touch notes.txt
+ls -l notes.txt
+# Output: -rw-rw-r-- 1
+
+chmod 644 notes.txt
+ls -l notes.txt
+# Output: -rw-r--r-- 1 
+
+chmod 600 notes.txt
+ls -l notes.txt
+# Output: -rw-------
+
+
+touch script.sh
+chmod u+x script.sh
+ls -l script.sh
+# Output: -rwxrw-r--
+
+whoami
+# Output: anshika
+
+ls -l notes.txt
+# Output: -rw------- 
+
+ps
+# Output: PID TTY          TIME CMD
+#         1234 pts/0    00:00:00 bash
+#         1250 pts/0    00:00:00 ps
+
+ps aux
+# Displays all running processes
+
+sleep 60 &
+jobs
+# Output: [1]+ Running sleep 60 &
+
+pgrep -a sleep
+# Output: 2345 sleep 60
+
+kill 2345
+# Terminates the sleep process
+
+apt search tree
+# Displays available tree package information
+
+umask
+# Output: 0002
+
+touch document.txt
+chmod g-w document.txt
+ls -l document.txt
+# Output: -rw-r--r-- 1 anshika anshika 0 Nov 2 19:30 document.txt
+
+sleep 100 &
+jobs
+fg %1
+# Press Ctrl+C to stop the foreground process
+
+sleep 100 &
+jobs
+bg %1
+
+uname -a
+# Displays kernel and architecture information
+
+ps -u $USER
+# Displays processes belonging to current user
+
+sleep 100 &
+pkill -x sleep
+# Terminates processes named sleep
+
+sudo apt update
+# Updates package index
+
+apt list --installed
+# Displays installed packages
+
+sudo chown $USER:$USER script.sh
+ls -l script.sh
+# Displays updated ownership
+# Owner: rwx, Group: r-x, Others: no permissions
+chmod 750 script.sh
+ls -l script.sh
+# Output: -rwxr-x--- 1 anshika anshika 0 Nov 2 19:30 script.sh
+
+# chmod 700 = owner has all permissions
+# Group and others have no permissions
+
+# chmod 007 = owner and group have no permissions
+# Others have read, write and execute permissions
+
+sudo chown student:student notes.txt
+ls -l notes.txt
+# Output: -rw------- 1 student student 0 Nov 2 19:30 notes.txt
+
+top
+# Press P to sort by CPU usage
+# Press q to exit
+
+sleep 100 &
+sleep 200 &
+jobs
+# Output:
+# [1] Running sleep 100 &
+# [2] Running sleep 200 &
+
+fg %1
+# Press Ctrl+C to stop sleep 100
+
+pkill -x sleep
+# Terminates all processes named sleep
+
+sudo apt install tree -y
+tree ~
+# Displays home directory structure
+
+sudo apt remove tree -y
+apt list --installed 2>/dev/null | grep '^tree/'
+# No output if tree is uninstalled
+
+umask
+# Output: 0002
+
+touch test_mask.txt
+ls -l test_mask.txt
+# Output: -rw-rw-r-- 1 anshika anshika 0 Nov 2 19:30 test_mask.txt
+
+ps aux | grep "$USER"
+# Displays processes belonging to the current user
+
+mkdir -p project_dir
+sudo groupadd devteam
+sudo chgrp devteam project_dir
+ls -ld project_dir
+# Output: drwxr-xr-x 2 anshika devteam 4096 Nov 2 19:30 project_dir
+
+nice -n 10 sleep 300 &
+ps -C sleep -o pid,ni,cmd
+# Displays PID, nice value and command
+
+renice 15 -p PID
+# Replace PID with actual process ID
+
+apt search apache2
+sudo apt install apache2 -y
+systemctl status apache2
+# Displays Apache service status
+
+# apt install may fail without apt update because
+# package information may be outdated or missing
+
+# Create shell script
+echo '#!/bin/bash' > script.sh
+echo 'echo "Hello Linux"' >> script.sh
+chmod +x script.sh
+./script.sh
+# Output: Hello Linux
+
+# Without a valid shebang, direct script execution
+# may fail with an Exec format error.
+
+# Shared file permissions
+touch shared.txt
+chmod u=rw,g=r,o= shared.txt
+ls -l shared.txt
+# Output: -rw-r----- 1 anshika anshika 0 Nov 2 19:30 shared.txt
+
+chmod 640 shared.txt
+# Numeric permission equivalent
+
+nice -n 15 sleep 300 &
+top
+# Find sleep process and check NI column
+# Nice value 15 means lower CPU scheduling priority
+
+kill -15 PID
+kill -9 PID
+# SIGKILL is the last resort if SIGTERM fails.
+# SIGKILL forcibly terminates a process.
+
+ps aux --sort=-%cpu | head -5
+# Displays top 5 CPU-consuming processes
+
+find . -type f -name "*.sh" -exec chmod +x {} \;
+# Grants execute permission to all .sh files
+
+# chmod 777 gives everyone read, write and execute access.
+# It creates serious security risks for sensitive files.
+
+sudo apt install tree -y
+dpkg -L tree
+# Displays all files installed by tree package
+
+# SIGTERM (15): Requests graceful termination.
+# SIGKILL (9): Forces immediate termination.
+# SIGTERM allows applications to save data and clean up.
+
+touch file1.txt file2.txt
+sudo chown root:root file1.txt
+sudo chown nobody:nogroup file2.txt
+find . -type f -user root
+# Displays files owned by root
+
+sudo chmod u+s custom_tool
+ls -l custom_tool
+# Output: -rwsr-xr-x
+# SUID runs executable with owner's effective privileges.
+
+sudo mkdir -p /shared_dir
+sudo chmod 2775 /shared_dir
+ls -ld /shared_dir
+# Output: drwxrwsr-x
+# New files and directories inherit the directory's group.
+
+sudo mkdir -p /public_tmp
+sudo chmod o+t /public_tmp
+ls -ld /public_tmp
+# Output: drwxr-xr-t
+# Sticky bit restricts deletion of other users' files.
+
+sleep 200
+# Press Ctrl+Z to suspend
+jobs
+# Output: [1]+ Stopped sleep 200
+
+bg %1
+# Output: [1]+ sleep 200 &
+
+fg %1
+# Brings job back to foreground
+# Press Ctrl+C to terminate
+
+ps -eo pid,comm,%mem --sort=-%mem | head -2 | tee top_memory.log
+# Displays and saves the highest memory-consuming process.
+
+PID=$(awk 'NR==2 {print $1}' top_memory.log)
+if [ -n "$PID" ]; then
+    kill -15 "$PID"
+fi
+# Sends SIGTERM to the selected process.

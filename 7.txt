@@ -1,0 +1,89 @@
+whoami
+ps
+ps -ef
+ps aux
+ps -f
+ps -ejH
+
+top
+htop
+
+sleep 300
+sleep 300 &
+jobs
+jobs -l
+
+fg %1
+sleep 300
+sleep 300 &
+jobs
+jobs -l
+
+fg %1
+sleep 300
+jobs
+bg %1
+jobs
+jobs -l
+
+sleep 300 &
+jobs -l
+
+sleep 500 &
+jobs -l
+pgrep -a sleep
+
+kill PID
+ps -p PID
+
+sleep 500 &
+pgrep -a sleep
+kill -TERM PID
+ps -p PID
+
+sleep 500 &
+pgrep -a sleep
+kill -KILL PID
+ps -p PID
+
+sleep 600 &
+pgrep -a sleep
+pkill -TERM -x sleep
+pgrep -a sleep
+
+sleep 400 &
+sleep 500 &
+sleep 600 &
+
+jobs
+jobs -l
+ps -u "$USER" -f
+
+kill -TERM %1
+kill -TERM %2
+kill -TERM %3
+
+jobs
+ps -u "$USER" -f
+
+ps
+ps -ef
+ps aux
+ps -ejH
+
+sleep 300
+jobs
+bg %1
+jobs -l
+
+fg %1
+jobs -l
+bg %1
+jobs -l
+
+pgrep -a -u "$USER" sleep
+pkill -TERM -u "$USER" -x sleep
+jobs
+pgrep -a -u "$USER" sleep
+ps -u "$USER" -f
+

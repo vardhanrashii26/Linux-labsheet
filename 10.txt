@@ -1,0 +1,80 @@
+lsblk
+lsblk -f
+sudo blkid
+
+sudo blkid /dev/sdb1
+lsblk -o NAME,SIZE,FSTYPE,UUID,MOUNTPOINTS
+
+sudo mkfs.ext4 /dev/sdb1
+sudo blkid /dev/sdb1
+lsblk -f
+
+sudo dumpe2fs -h /dev/sdb1
+sudo tune2fs -l /dev/sdb1
+
+sudo mkdir -p /mnt/labfs
+ls -ld /mnt/labfs
+
+sudo mount /dev/sdb1 /mnt/labfs
+findmnt /mnt/labfs
+
+df -h /mnt/labfs
+df -T /mnt/labfs
+
+sudo touch /mnt/labfs/testfile.txt
+echo "File system practical test" | sudo tee /mnt/labfs/testfile.txt
+cat /mnt/labfs/testfile.txt
+ls -l /mnt/labfs
+
+sudo umount /mnt/labfs
+findmnt /mnt/labfs
+
+cat /etc/fstab
+sudo cp /etc/fstab /etc/fstab.backup
+
+sudo blkid /dev/sdb1
+
+sudo nano /etc/fstab
+
+sudo mount -a
+findmnt /mnt/labfs
+df -h /mnt/labfs
+
+sudo reboot
+
+lsblk -f
+findmnt /mnt/labfs
+df -h /mnt/labfs
+
+sudo blkid /dev/sdb1
+grep labfs /etc/fstab
+
+sudo umount /mnt/labfs
+sudo e2fsck -f /dev/sdb1
+
+sudo e2fsck -n /dev/sdb1
+
+sudo umount /mnt/labfs
+sudo e2fsck -f /dev/sdb1
+
+sudo nano /etc/fstab
+sudo mount -a
+findmnt /mnt/labfs
+
+sudo nano /etc/fstab
+sudo mount -a
+findmnt /mnt/labfs
+
+sudo umount /mnt/labfs
+sudo nano /etc/fstab
+
+sudo mount -a
+findmnt /mnt/labfs
+
+sudo cp /etc/fstab.backup /etc/fstab
+sudo mount -a
+
+findmnt /mnt/labfs
+lsblk -f
+df -h
+cat /etc/fstab

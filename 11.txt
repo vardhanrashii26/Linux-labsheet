@@ -1,0 +1,114 @@
+sudo apt install zip unzip -y
+
+mkdir -p archive_lab
+
+echo "This is first file." > archive_lab/file1.txt
+echo "This is second file." > archive_lab/file2.txt
+echo "This is third file." > archive_lab/file3.txt
+
+cat archive_lab/file1.txt
+cat archive_lab/file2.txt
+cat archive_lab/file3.txt
+
+tar -cvf files.tar archive_lab
+ls -lh files.tar
+tar -tvf files.tar
+
+mkdir -p extracted_tar
+tar -xvf files.tar -C extracted_tar
+ls -R extracted_tar
+
+gzip archive_lab/file1.txt
+ls archive_lab
+gunzip archive_lab/file1.txt.gz
+ls archive_lab
+
+tar -czvf archive.tar.gz archive_lab
+ls -lh archive.tar.gz
+tar -tzvf archive.tar.gz
+
+mkdir -p extracted_targz
+tar -xzvf archive.tar.gz -C extracted_targz
+ls -R extracted_targz
+
+zip files.zip archive_lab/file1.txt archive_lab/file2.txt archive_lab/file3.txt
+ls -lh files.zip
+unzip -l files.zip
+
+mkdir -p extracted_zip
+unzip files.zip -d extracted_zip
+ls -R extracted_zip
+
+unzip -o files.zip archive_lab/file1.txt -d extracted_zip
+
+mkdir -p directory_zip
+zip -r directory_zip.zip archive_lab
+unzip -l directory_zip.zip
+
+tar -cvf backup.tar archive_lab
+gzip backup.tar
+ls -lh backup.tar.gz
+
+tar -czvf archive.tar.gz archive_lab
+tar -tvf files.tar
+tar -tzvf archive.tar.gz
+
+echo "This is an additional file." > archive_lab/file4.txt
+tar -rvf files.tar archive_lab/file4.txt
+tar -tvf files.tar
+
+ls -lh files.tar archive.tar.gz
+du -h files.tar archive.tar.gz
+
+mkdir -p extracted_tar_gz
+tar -xvzf archive.tar.gz -C extracted_tar_gz
+
+mkdir -p extracted_zip_files
+unzip files.zip -d extracted_zip_files
+
+ls -R extracted_tar_gz
+ls -R extracted_zip_files
+
+mkdir -p practice_backup
+
+echo "Backup file one" > practice_backup/backup1.txt
+echo "Backup file two" > practice_backup/backup2.txt
+echo "Backup file three" > practice_backup/backup3.txt
+
+tar -czvf practice_backup.tar.gz practice_backup
+
+mkdir -p restored_backup
+tar -xzvf practice_backup.tar.gz -C restored_backup
+ls -R restored_backup
+
+mkdir -p final_archive_lab
+
+echo "Final archive practical file one" > final_archive_lab/one.txt
+echo "Final archive practical file two" > final_archive_lab/two.txt
+echo "Final archive practical file three" > final_archive_lab/three.txt
+
+tar -cvf final_archive.tar final_archive_lab
+tar -tvf final_archive.tar
+
+gzip -k final_archive_lab/one.txt
+ls -lh final_archive_lab
+
+gunzip final_archive_lab/one.txt.gz
+ls -lh final_archive_lab
+
+tar -czvf final_archive.tar.gz final_archive_lab
+tar -tzvf final_archive.tar.gz
+
+zip final_archive.zip final_archive_lab/one.txt final_archive_lab/two.txt final_archive_lab/three.txt
+unzip -l final_archive.zip
+
+mkdir -p final_extracted_tar
+mkdir -p final_extracted_zip
+
+tar -xzvf final_archive.tar.gz -C final_extracted_tar
+unzip final_archive.zip -d final_extracted_zip
+
+ls -R final_extracted_tar
+ls -R final_extracted_zip
+
+ls -lh *.tar *.tar.gz *.zip

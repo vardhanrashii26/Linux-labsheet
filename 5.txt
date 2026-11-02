@@ -1,0 +1,121 @@
+
+whoami
+id
+id -u
+id -g
+groups
+
+
+grep '^labuser1:' /etc/passwd
+
+
+
+sudo passwd -S labuser1
+
+
+sudo useradd labuser1
+getent passwd labuser1
+
+sudo useradd -m labuser2
+getent passwd labuser2
+ls -ld /home/labuser2
+
+
+sudo useradd -m -s /bin/bash labuser3
+getent passwd labuser3
+grep '^labuser3:' /etc/passwd
+
+
+sudo passwd labuser1
+sudo passwd -S labuser1
+
+
+sudo passwd labuser1
+sudo passwd -S labuser1
+
+
+sudo usermod -s /bin/bash labuser2
+getent passwd labuser2
+
+
+sudo usermod -d /home/labuser2_new labuser2
+getent passwd labuser2
+ls -ld /home/labuser2 /home/labuser2_new 2>/dev/null
+
+
+sudo usermod -d /home/labuser2_final -m labuser2
+getent passwd labuser2
+ls -ld /home/labuser2_final
+
+sudo groupadd userlabgroup
+sudo usermod -aG userlabgroup labuser1
+id labuser1
+groups labuser1
+getent group userlabgroup
+
+
+sudo passwd -l labuser3
+sudo passwd -S labuser3
+
+
+sudo passwd -u labuser3
+sudo passwd -S labuser3
+
+
+sudo chage -l labuser3
+
+
+sudo chage -E 2027-12-31 labuser3
+sudo chage -l labuser3
+
+
+sudo groupadd primarylabgroup
+sudo usermod -g primarylabgroup labuser1
+id labuser1
+getent passwd labuser1
+getent group primarylabgroup
+
+id labuser1
+groups labuser1
+getent passwd labuser1
+getent group userlabgroup
+getent group primarylabgroup
+
+sudo userdel labuser1
+getent passwd labuser1
+ls -ld /home/labuser1
+
+sudo userdel -r labuser2
+getent passwd labuser2
+ls -ld /home/labuser2_final
+
+sudo useradd -m -s /bin/bash workflowuser
+sudo passwd workflowuser
+sudo groupadd workflowgroup
+sudo usermod -aG workflowgroup workflowuser
+sudo passwd -l workflowuser
+sudo passwd -S workflowuser
+sudo passwd -u workflowuser
+
+id workflowuser
+groups workflowuser
+getent passwd workflowuser
+getent group workflowgroup
+sudo passwd -S workflowuser
+sudo chage -l workflowuser
+
+sudo userdel -r labuser3
+sudo userdel -r workflowuser
+
+
+sudo groupdel userlabgroup
+sudo groupdel primarylabgroup
+sudo groupdel workflowgroup
+
+getent passwd labuser1
+getent passwd labuser2
+getent passwd labuser3
+getent passwd workflowuser
+getent group userlabgroup
+getent group primarylabgroup
+getent group workflowgroup

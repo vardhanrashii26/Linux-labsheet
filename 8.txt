@@ -1,0 +1,83 @@
+rpm --version
+which rpm
+
+dnf --version
+which dnf
+
+rpm -qa | grep -i bash
+
+rpm -qi bash
+
+rpm -ql bash
+
+rpm -qf /bin/bash
+
+rpm -qi --last bash
+
+dnf repolist
+
+dnf repolist all
+
+dnf repoinfo
+
+dnf info bash
+
+dnf search nano
+
+sudo dnf install nano -y
+
+rpm -q nano
+
+dnf list installed nano
+
+sudo dnf install tree -y
+
+rpm -q tree
+dnf info tree
+
+dnf check-update
+
+sudo dnf upgrade nano -y
+
+rpm -q nano
+dnf info nano
+
+sudo dnf upgrade -y
+
+dnf check-update
+
+sudo dnf remove tree -y
+
+rpm -q tree
+
+dnf provides /usr/bin/tree
+
+dnf history
+
+dnf history info
+
+sudo dnf install htop -y
+
+rpm -q htop
+dnf info htop
+
+sudo dnf upgrade htop -y
+
+rpm -q htop
+
+sudo dnf remove htop -y
+
+rpm -q htop
+
+dnf repolist all
+
+dnf history
+
+sudo dnf history list
+
+rpm -qa | sort
+
+dnf repolist
+
+which rpm
+which dnf

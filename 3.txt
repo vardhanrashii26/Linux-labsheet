@@ -1,0 +1,279 @@
+#!/bin/bash
+
+mkdir -p data logs output backup
+
+
+cat > hello.sh <<'EOF'
+#!/bin/bash
+name="Anshika"
+echo "Hello, $name! Welcome to Linux Shell Scripting."
+EOF
+chmod +x hello.sh
+./hello.sh
+bash hello.sh
+
+
+cat > user_input.sh <<'EOF'
+#!/bin/bash
+echo "Enter Student Name:"
+read name
+echo "Enter Branch:"
+read branch
+echo "Enter Semester:"
+read semester
+echo "Welcome, $name!"
+echo "Branch: $branch"
+echo "Semester: $semester"
+EOF
+chmod +x user_input.sh
+./user_input.sh
+
+cat > calculator.sh <<'EOF'
+#!/bin/bash
+echo "Enter first number:"
+read a
+echo "Enter second number:"
+read b
+echo "Sum = $((a+b))"
+echo "Difference = $((a-b))"
+echo "Product = $((a*b))"
+if [ "$b" -ne 0 ]; then
+    echo "Quotient = $((a/b))"
+else
+    echo "Division by zero is not allowed"
+fi
+EOF
+chmod +x calculator.sh
+./calculator.sh
+
+cat > system_info.sh <<'EOF'
+#!/bin/bash
+current_date=$(date)
+current_directory=$(pwd)
+username=$(whoami)
+echo "Current Date: $current_date"
+echo "Current Directory: $current_directory"
+echo "Username: $username"
+EOF
+chmod +x system_info.sh
+./system_info.sh
+
+cat > number_type.sh <<'EOF'
+#!/bin/bash
+echo "Enter an integer:"
+read num
+if [ "$num" -gt 0 ]; then
+    echo "Positive Number"
+elif [ "$num" -lt 0 ]; then
+    echo "Negative Number"
+else
+    echo "Zero"
+fi
+EOF
+chmod +x number_type.sh
+./number_type.sh
+
+cat > even_odd.sh <<'EOF'
+#!/bin/bash
+if [ $# -eq 0 ]; then
+    echo "Usage: ./even_odd.sh <number>"
+    exit 1
+fi
+if [ $(( $1 % 2 )) -eq 0 ]; then
+    echo "$1 is Even"
+else
+    echo "$1 is Odd"
+fi
+EOF
+chmod +x even_odd.sh
+./even_odd.sh 10
+./even_odd.sh 7
+
+
+cat > file_check.sh <<'EOF'
+#!/bin/bash
+if [ $# -eq 0 ]; then
+    echo "Usage: ./file_check.sh <path>"
+    exit 1
+fi
+if [ -f "$1" ]; then
+    echo "$1 is a regular file"
+    if [ -x "$1" ]; then
+        echo "File is executable"
+    else
+        echo "File is not executable"
+    fi
+elif [ -d "$1" ]; then
+    echo "$1 is a directory"
+else
+    echo "$1 does not exist"
+fi
+EOF
+chmod +x file_check.sh
+./file_check.sh hello.sh
+./file_check.sh data
+
+
+cat > multiplication.sh <<'EOF'
+#!/bin/bash
+if [ $# -eq 0 ]; then
+    echo "Usage: ./multiplication.sh <number>"
+    exit 1
+fi
+num=$1
+for ((i=1; i<=10; i++))
+do
+    echo "$num x $i = $((num*i))"
+done
+EOF
+chmod +x multiplication.sh
+./multiplication.sh 5
+
+touch data/one.txt data/two.txt data/three.txt
+cat > list_txt.sh <<'EOF'
+#!/bin/bash
+for file in data/*.txt
+do
+    if [ -f "$file" ]; then
+        echo "Found text file: $file"
+    fi
+done
+EOF
+chmod +x list_txt.sh
+./list_txt.sh
+
+cat > countdown.sh <<'EOF'
+#!/bin/bash
+num=10
+while [ "$num" -ge 1 ]
+do
+    echo "$num"
+    num=$((num-1))
+done
+echo "Done!"
+EOF
+chmod +x countdown.sh
+./countdown.sh
+
+cat > arguments.sh <<'EOF'
+#!/bin/bash
+echo "Script Name: $0"
+echo "First Argument: $1"
+echo "Second Argument: $2"
+echo "Total Arguments: $#"
+echo "All Arguments: $@"
+EOF
+chmod +x arguments.sh
+./arguments.sh Anshika MCA
+./arguments.sh Rahul BCA
+
+cat > status.sh <<'EOF'
+#!/bin/bash
+if [ -d "$1" ]; then
+    echo "Directory exists"
+    exit 0
+else
+    echo "Directory does not exist"
+    exit 1
+fi
+EOF
+chmod +x status.sh
+./status.sh data
+echo $?
+./status.sh xyz
+echo $?
+
+ls data > output/files.txt
+cat output/files.txt
+echo "New file added" >> output/files.txt
+cat output/files.txt
+
+
+cat > log_entry.sh <<'EOF'
+#!/bin/bash
+echo "Enter your message:"
+read message
+echo "$(date '+%Y-%m-%d %H:%M:%S') - $message" >> logs/activity.log
+echo "Log entry saved successfully"
+EOF
+chmod +x log_entry.sh
+./log_entry.sh
+
+
+cat > data/names.txt <<'EOF'
+Rahul
+Anshika
+Priya
+Rahul
+Rohit
+Priya
+EOF
+sort < data/names.txt
+sort -u < data/names.txt
+
+ls /wrong_directory 2> logs/errors.log
+cat logs/errors.log
+
+ls /home /wrong_directory > logs/combined.log 2>&1
+cat logs/combined.log
+
+ps aux | grep '[b]ash'
+ps aux | grep '[b]ash' | wc -l
+
+
+cat > backup_check.sh <<'EOF'
+#!/bin/bash
+if [ $# -eq 0 ]; then
+    echo "Usage: ./backup_check.sh <directory>"
+    exit 1
+fi
+if [ ! -d "$1" ]; then
+    echo "Directory does not exist"
+    exit 1
+fi
+mkdir -p logs
+count=0
+while IFS= read -r -d '' file
+do
+    echo "Backup found: $file"
+    count=$((count+1))
+done < <(find "$1" -type f -name "*.bak" -print0)
+echo "Total backup files: $count"
+if [ "$count" -eq 0 ]; then
+    echo "No backup files found" >> logs/backup_log.txt
+fi
+EOF
+chmod +x backup_check.sh
+touch backup/data1.bak backup/data2.bak
+./backup_check.sh backup
+
+
+cat > file_report.sh <<'EOF'
+#!/bin/bash
+if [ $# -ne 1 ]; then
+    echo "Usage: ./file_report.sh <filename>"
+    exit 1
+fi
+mkdir -p logs
+if [ ! -f "$1" ]; then
+    echo "Error: File does not exist"
+    echo "$(date) - Failed: $1 does not exist" >> logs/execution_history.log
+    exit 1
+fi
+if [ ! -r "$1" ]; then
+    echo "Error: File is not readable"
+    echo "$(date) - Failed: $1 is not readable" >> logs/execution_history.log
+    exit 1
+fi
+echo "File Report: $1"
+wc "$1"
+echo "$(date) - Successfully processed: $1" >> logs/execution_history.log
+echo "Processing completed successfully"
+EOF
+chmod +x file_report.sh
+echo "Hello Linux" > sample.txt
+echo "Welcome to Bash" >> sample.txt
+./file_report.sh sample.txt
+./file_report.sh missing.txt
+
+echo "All 20 Bash practicals completed."
